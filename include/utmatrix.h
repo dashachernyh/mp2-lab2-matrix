@@ -62,6 +62,7 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
+
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> //конструктор копирования
@@ -157,7 +158,12 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
-} /*-------------------------------------------------------------------------*/
+	for (int i = 0; i < Size; i++)
+	{
+		TVector<ValType> v(s - i, i);
+		pVector[i] = v;
+	}
+} 
 
 template <class ValType> // конструктор копирования
 TMatrix<ValType>::TMatrix(const TMatrix<ValType> &mt):

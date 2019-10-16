@@ -246,7 +246,6 @@ public:
   TMatrix  operator+ (const TMatrix &mt);        // сложение
   TMatrix  operator- (const TMatrix &mt);        // вычитание
   TVector<ValType>& operator[](int i);
-  TMatrix&  operator+= (const TMatrix &mt);
   TMatrix operator *(const ValType &val);
   TMatrix operator /(const ValType &val);
 
@@ -347,15 +346,11 @@ TVector<ValType>& TMatrix<ValType>::operator[](int i)
 		return pVector[i];
 }
 
-template <class ValType> // вычитание
-TMatrix<ValType>&  TMatrix<ValType>::operator+=(const TMatrix<ValType> &mt)
-{
-	return TVector<TVector<ValType>>::operator+=(mt);
-}
+
 template <class ValType>
 TMatrix<ValType> TMatrix<ValType>::operator *(const ValType &val)
 {
-	return TVector<TVector<ValType>>::operator *(val);
+	return TVector<TVector<ValType>>::operator*(val);
 }
 template <class ValType>
 TMatrix<ValType> TMatrix<ValType>::operator /(const ValType &val)

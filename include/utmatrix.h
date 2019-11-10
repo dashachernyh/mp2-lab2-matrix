@@ -77,6 +77,7 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
+	if ((s<0)||(si<0) ||(s > MAX_VECTOR_SIZE)) throw "wrong size";
 		Size = s;
 		StartIndex = si;
 		pVector = new ValType[Size];
@@ -106,7 +107,7 @@ TVector<ValType>::~TVector()
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-	
+	if (pos<0 || pos>MAX_VECTOR_SIZE) throw "wrong possition of element";
 	return pVector[pos - StartIndex];
 } /*-------------------------------------------------------------------------*/
 
@@ -191,6 +192,7 @@ TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
+	if (Size != v.Size) throw "not equal Size";
 	TVector rez(Size);
 	for (int i = 0; i < Size; i++)
 		rez[i] = pVector[i] + v.pVector[i];
@@ -200,6 +202,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 template <class ValType> // сложение
 TVector<ValType>& TVector<ValType>::operator+=(const TVector<ValType> &v)
 {
+	if (Size != v.Size) throw "not equal Size";
 	for (int i = 0; i < Size; i++)
 		pVector[i] += v.pVector[i];
 	return *this;
@@ -208,6 +211,7 @@ TVector<ValType>& TVector<ValType>::operator+=(const TVector<ValType> &v)
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
+	if (Size != v.Size) throw "not equal Size";
 	TVector rez(Size);
 	for (int i = 0; i < Size; i++)
 		rez[i] = pVector[i] - v.pVector[i];
@@ -217,6 +221,7 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 template <class ValType> // скалярное произведение
 ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
+	if (Size != v.Size) throw "not equal size";
 	ValType rez = 0;
 	for (int i = 0; i < Size; i++)
 		rez += pVector[i] * v.pVector[i];

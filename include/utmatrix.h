@@ -242,7 +242,7 @@ template <class ValType>
 class TMatrix : public TVector<TVector<ValType> >
 {
 public:
-  TMatrix(int s = 10);                           
+  TMatrix(int s = 10);   
   TMatrix(const TMatrix &mt);                    // копирование
   TMatrix(const TVector<TVector<ValType> > &mt); // преобразование типа
   bool operator==(const TMatrix &mt) const;      // сравнение
@@ -272,6 +272,7 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
+	if (s<0 || s>MAX_MATRIX_SIZE) throw "wrong size";
 	for (int i = 0; i < Size; i++)
 	{
 		TVector<ValType> v(s - i, i);
@@ -345,7 +346,7 @@ TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 {
 	return TVector<TVector<ValType>>::operator -(mt);
 } 
-template <class ValType> // вычитание
+template <class ValType> 
 TVector<ValType>& TMatrix<ValType>::operator[](int i)
 {
 		return pVector[i];

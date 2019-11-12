@@ -35,17 +35,13 @@ TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 		}
 	}
 	TMatrix <int>m(b);
-	for (int i = 0; i < 2; i++)
-	{
-		for (int j = 0; j < 2; j++)
-			EXPECT_EQ(2, m[i][j]);
-	}
+			EXPECT_EQ(b, m);
 }
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
 	TMatrix<int> *p;
-	p = new TMatrix<int>[2];
+	p = new TMatrix<int>(2);
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 2; j++)
@@ -56,7 +52,8 @@ TEST(TMatrix, copied_matrix_has_its_own_memory)
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 2; j++)
-			EXPECT_EQ(i + j, m[i][j]);
+			EXPECT_EQ(m[i][j],i+j);
+		
 	}
 }
 
@@ -104,12 +101,8 @@ TEST(TMatrix, can_assign_matrix_to_itself)
 			m[i][j] = 2;
 		}
 	}
-	ASSERT_NO_THROW(m = m);
-	for (int i = 0; i < 2; i++)
-	{
-		for (int j = 0; j < 2; j++)
-			EXPECT_EQ(2, m[i][j]);
-	}
+	
+	EXPECT_EQ(m, m);
 }
 
 TEST(TMatrix, can_assign_matrices_of_equal_size)
@@ -123,11 +116,8 @@ TEST(TMatrix, can_assign_matrices_of_equal_size)
 		}
 	}
 	m2 = m1;
-	for(int i=0;i<2;i++)
-	{
-		for(int j=0;j<2;j++)
-	EXPECT_EQ(i + j, m2[i][j]);
-    }
+	EXPECT_EQ(m1, m2);
+    
 }
 
 TEST(TMatrix, assign_operator_change_matrix_size)

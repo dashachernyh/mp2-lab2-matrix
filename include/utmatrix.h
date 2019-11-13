@@ -95,7 +95,7 @@ TVector<ValType>::TVector(const TVector<ValType> &v)
 	pVector = new ValType[Size];
 	for (int i = 0; i < Size; i++)
 		pVector[i] = v.pVector[i];
-
+	StartIndex = v.StartIndex;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType>
@@ -349,20 +349,22 @@ TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 template <class ValType> 
 TVector<ValType>& TMatrix<ValType>::operator[](int i)
 {
+	if (i<0 || i>MAX_MATRIX_SIZE) throw "wrong index";
 		return pVector[i];
 }
 
-
+/*
 template <class ValType>
 TMatrix<ValType> TMatrix<ValType>::operator *(const ValType &val)
 {
 	return TVector<TVector<ValType>>::operator*(val);
 }
+/*
 template <class ValType>
 TMatrix<ValType> TMatrix<ValType>::operator /(const ValType &val)
 {
 	return TVector<TVector<ValType>>::operator /(val);
-}
+}*/
 // TVector О3 Л2 П4 С6
 // TMatrix О2 Л2 П3 С3
 #endif

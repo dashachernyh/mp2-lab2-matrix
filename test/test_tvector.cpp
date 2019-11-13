@@ -42,7 +42,7 @@ TEST(TVector, copied_vector_is_equal_to_source_one)
 TEST(TVector, copied_vector_has_its_own_memory)
 {
 	TVector<int> *p;
-	p = new TVector<int>[10];
+	p = new TVector<int>(10);
 	for (int i = 0; i < 10; i++)
 		(*p)[i] = i;
 	TVector<int> v1(*p);

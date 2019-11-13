@@ -29,13 +29,17 @@ TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 	TMatrix<int> b(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			b[i][j] = 2;
 		}
 	}
-	TMatrix <int>m(b);
-			EXPECT_EQ(b, m);
+	TMatrix<int> m(b);
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = i; j < 2; j++)
+			EXPECT_EQ(2, m[i][j]);
+	}
 }
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
@@ -44,14 +48,14 @@ TEST(TMatrix, copied_matrix_has_its_own_memory)
 	p = new TMatrix<int>(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 			(*p)[i][j] = i + j;
 	}
 	TMatrix<int> m(*p);
 	delete p;
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 			EXPECT_EQ(m[i][j],i+j);
 		
 	}
@@ -68,7 +72,7 @@ TEST(TMatrix, can_set_and_get_element)
 	TMatrix<int> m(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m[i][j] = 2;
 		}
@@ -80,8 +84,8 @@ TEST(TMatrix, can_set_and_get_element)
 
 TEST(TMatrix, throws_when_set_element_with_negative_index)
 {
-	TMatrix<int> m(2);
-	ASSERT_ANY_THROW(m[-1][2]);
+	TMatrix<int> m(3);
+	ASSERT_ANY_THROW(m[-1][-2]);
 
 }
 
@@ -96,13 +100,16 @@ TEST(TMatrix, can_assign_matrix_to_itself)
 	TMatrix<int> m(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m[i][j] = 2;
 		}
 	}
-	
-	EXPECT_EQ(m, m);
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = i; j < 2; j++)
+			EXPECT_EQ(2, m[i][j]);
+	}
 }
 
 TEST(TMatrix, can_assign_matrices_of_equal_size)
@@ -110,7 +117,7 @@ TEST(TMatrix, can_assign_matrices_of_equal_size)
 	TMatrix<int> m1(2), m2(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m1[i][j] = i + j;
 		}
@@ -132,7 +139,7 @@ TEST(TMatrix, can_assign_matrices_of_different_size)
 	TMatrix<int> m1(2), m2(4);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m1[i][j] = i + j;
 		}
@@ -144,6 +151,14 @@ TEST(TMatrix, can_assign_matrices_of_different_size)
 TEST(TMatrix, compare_equal_matrices_return_true)
 {
 	TMatrix<int> m1(2), m2(2);
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = i; j < 2; j++)
+		{
+			m1[i] = i;
+			m2[i] = i;
+		}
+	}
 	EXPECT_EQ(1, m1 == m2);
 }
 
@@ -152,7 +167,7 @@ TEST(TMatrix, compare_matrix_with_itself_return_true)
 	TMatrix<int> m(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m[i][j] = i + j;
 		}
@@ -172,7 +187,7 @@ TEST(TMatrix, can_add_matrices_with_equal_size)
 	TMatrix<int> m1(2), m2(2),rez(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m1[i][j] = 1;
 			m2[i][j] = 2;
@@ -193,7 +208,7 @@ TEST(TMatrix, can_subtract_matrices_with_equal_size)
 	TMatrix<int> m1(2), m2(2), rez(2);
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = i; j < 2; j++)
 		{
 			m1[i][j] = 1;
 			m2[i][j] = 4;
